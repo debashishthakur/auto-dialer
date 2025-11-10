@@ -1,0 +1,13 @@
+<h1>📱 Upload Phone Numbers</h1>
+<div class="card">
+  <%= form_with url: phone_numbers_path, method: :post, html: { multipart: true }, local: true do %>
+    <h3>Copy &amp; Paste Numbers (one per line: +1XXXXXXXXXX)</h3>
+    <%= text_area_tag :phone_numbers, nil, rows: 10, placeholder: "+12025551234\n+12025551235" %>
+    <h3 style="margin-top: 20px;">OR Upload CSV</h3>
+    <%= file_field_tag :csv_file, accept: ".csv" %>
+    <div style="margin-top: 20px;">
+      <%= link_to "Cancel", phone_numbers_path, class: "btn", style: "background: #e5e7eb;" %>
+      <%= submit_tag "Import", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

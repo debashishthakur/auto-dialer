@@ -1,0 +1,10 @@
+<h1>Call Details</h1>
+<div class="card">
+  <p><strong>Phone Number:</strong> <%= @call.phone_number.number %></p>
+  <p><strong>Status:</strong> <span class="badge badge-<%= @call.status %>"><%= @call.status.titleize %></span></p>
+  <p><strong>Call SID:</strong> <code><%= @call.call_sid %></code></p>
+  <p><strong>Duration:</strong> <%= @call.duration_formatted %></p>
+  <p><strong>Started At:</strong> <%= @call.started_at %></p>
+  <p><strong>Completed At:</strong> <%= @call.completed_at %></p>
+</div>
+<%= link_to "⬅ Back", calls_path, class: "btn btn-primary" %>

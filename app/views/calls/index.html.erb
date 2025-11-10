@@ -1,0 +1,29 @@
+<h1 style="display: flex; justify-content: space-between;">
+  📞 Call Logs
+  <%= link_to "Export CSV", export_csv_calls_path(format: :csv), class: "btn btn-primary" %>
+</h1>
+<div class="card">
+  <p>Total: <%= @stats[:total] %> | Completed: <%= @stats[:completed] %> | Failed: <%= @stats[:failed] %></p>
+</div>
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Phone Number</th>
+        <th>Status</th>
+        <th>Call SID</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @calls.each do |call| %>
+        <tr>
+          <td><%= call.phone_number.number %></td>
+          <td><span class="badge badge-<%= call.status %>"><%= call.status.titleize %></span></td>
+          <td><code><%= call.call_sid %></code></td>
+          <td><%= call.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

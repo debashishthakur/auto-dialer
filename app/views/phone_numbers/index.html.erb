@@ -1,0 +1,46 @@
+<h1 style="display: flex; justify-content: space-between;">
+  📱 Phone Numbers
+  <%= link_to "➕ Upload", new_phone_number_path, class: "btn btn-primary" %>
+</h1>
+<div class="card">
+  <p>Total: <%= @stats[:total] %> | Active: <%= @stats[:active] %></p>
+</div>
+<div class="card">
+  <h2 style="margin-bottom: 10px;">Dial Active Numbers</h2>
+  <p style="margin-bottom: 10px;">Set the message callers will hear, then dial every active number with one click.</p>
+  <%= form_with url: calls_path, method: :post, local: true do %>
+    <label for="voice_script" style="font-weight: bold;">Voice Script</label>
+    <%= text_area_tag :voice_script, "Hello from Autodialer", rows: 3, style: "margin-top: 5px;" %>
+    <div style="margin-top: 15px;">
+      <%= submit_tag "Dial All Active Numbers (#{@stats[:active]})", class: "btn btn-primary", data: { confirm: "Start calls to all active numbers?" } %>
+    </div>
+  <% end %>
+</div>
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>Phone Number</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @phone_numbers.each do |number| %>
+        <tr>
+          <td><%= number.number %></td>
+          <td><span class="badge"><%= number.status.titleize %></span></td>
+          <td>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <%= form_with url: calls_path, method: :post, local: true, html: { style: "display:inline;" } do |f| %>
+                <%= f.hidden_field :phone_number_id, value: number.id %>
+                <%= f.submit "Dial", class: "btn btn-primary" %>
+              <% end %>
+              <%= link_to "Delete", phone_number_path(number), method: :delete, data: { confirm: "Sure?" }, class: "btn", style: "background: #e5e7eb;" %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

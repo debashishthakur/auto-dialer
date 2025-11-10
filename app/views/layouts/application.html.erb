@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Autodialer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: sans-serif; background: #f3f4f6; }
+      .sidebar { width: 250px; background: #4F46E5; color: white; padding: 20px; height: 100vh; position: fixed; left: 0; top: 0; }
+      .main { margin-left: 250px; padding: 20px; }
+      .card { background: white; padding: 20px; border-radius: 8px; margin: 10px 0; }
+      .nav-link { display: block; color: white; text-decoration: none; padding: 10px; margin: 5px 0; border-radius: 5px; }
+      .nav-link:hover { background: rgba(255,255,255,0.1); }
+      .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+      .btn-primary { background: #4F46E5; color: white; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+      th { background: #f3f4f6; }
+      .badge { padding: 4px 8px; border-radius: 3px; font-size: 12px; }
+      .badge-completed { background: #d1fae5; color: #065f46; }
+      .badge-failed { background: #fee2e2; color: #991b1b; }
+      textarea, input { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #d1d5db; border-radius: 5px; }
+      .alert { padding: 10px; margin: 10px 0; border-radius: 5px; }
+      .alert-success { background: #d1fae5; color: #065f46; }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>📞 Autodialer</h2>
+      <%= link_to "🏠 Dashboard", root_path, class: "nav-link" %>
+      <%= link_to "📱 Phone Numbers", phone_numbers_path, class: "nav-link" %>
+      <%= link_to "📞 Call Logs", calls_path, class: "nav-link" %>
+    </div>
+    <div class="main">
+      <% if notice %><div class="alert alert-success"><%= notice %></div><% end %>
+      <% if alert %><div class="alert"><%= alert %></div><% end %>
+      <% if flash[:success] %><div class="alert alert-success"><%= flash[:success] %></div><% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

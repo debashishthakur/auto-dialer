@@ -1,0 +1,40 @@
+<h1>Dashboard</h1>
+<div>
+  <div class="card" style="display: inline-block; width: 23%; margin: 1%;">
+    <div>Total Numbers</div>
+    <div style="font-size: 32px; font-weight: bold;"><%= @stats[:total_numbers] %></div>
+  </div>
+  <div class="card" style="display: inline-block; width: 23%; margin: 1%;">
+    <div>Total Calls</div>
+    <div style="font-size: 32px; font-weight: bold;"><%= @stats[:total_calls] %></div>
+  </div>
+  <div class="card" style="display: inline-block; width: 23%; margin: 1%;">
+    <div>Completed</div>
+    <div style="font-size: 32px; font-weight: bold; color: #10b981;"><%= @stats[:completed] %></div>
+  </div>
+  <div class="card" style="display: inline-block; width: 23%; margin: 1%;">
+    <div>Failed</div>
+    <div style="font-size: 32px; font-weight: bold; color: #ef4444;"><%= @stats[:failed] %></div>
+  </div>
+</div>
+<div class="card">
+  <h2>Recent Calls</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Phone Number</th>
+        <th>Status</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recent_calls.each do |call| %>
+        <tr>
+          <td><%= call.phone_number.number %></td>
+          <td><span class="badge badge-<%= call.status %>"><%= call.status.titleize %></span></td>
+          <td><%= call.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

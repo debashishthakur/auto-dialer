@@ -1,0 +1,46 @@
+# See https://help.github.com/articles/ignoring-files for more about ignoring files.
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files (except templates).
+/.env*
+!/.env*.erb
+
+# Ignore the default SQLite databases.
+/db/*.sqlite3
+/db/*.sqlite3-*
+/db/*.sqlite3-journal
+
+# Ignore logfiles and tempfiles, but keep directories.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore pidfiles but keep directory structure.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore storage (uploaded files in development and sqlite backups).
+/storage/*
+!/storage/.keep
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
+
+/config/master.key
+
+# Ignore asset builds and node modules.
+/public/assets
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/node_modules
+/vendor/bundle/
+
+# Ignore coverage and misc files.
+/coverage/
+*.rbc
+*.orig
+.DS_Store
