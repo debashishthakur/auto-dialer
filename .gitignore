@@ -44,3 +44,4 @@
 *.rbc
 *.orig
 .DS_Store
+.fly/

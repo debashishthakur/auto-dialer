@@ -3,7 +3,6 @@ source "https://rubygems.org"
 ruby "3.4.4"
 
 gem "rails", "~> 7.0.0"
-gem "sqlite3", "~> 1.4"
 gem "puma", "~> 5.0"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "sass-rails", ">= 6"
@@ -18,7 +17,12 @@ gem "kaminari", "~> 1.2"
 gem "httparty", "~> 0.21.0"
 gem "json", "~> 2.6"
 
+group :production do
+  gem "pg", "~> 1.5"
+end
+
 group :development, :test do
+  gem "sqlite3", "~> 1.4"
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 end
 
