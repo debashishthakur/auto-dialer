@@ -17,11 +17,12 @@ ENV RAILS_ENV="production" \
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
-# Install packages needed to build gems and Node.js for asset compilation
+# Install packages needed to build gems, Node.js and Yarn for asset compilation
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config curl && \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
+    apt-get install -y nodejs && \
+    npm install -g yarn
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
@@ -29,9 +30,9 @@ RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     bundle exec bootsnap precompile --gemfile
 
-# Install npm packages if package.json exists
-COPY package*.json ./
-RUN npm install
+# Install yarn packages if package.json exists
+COPY package*.json yarn.lock ./
+RUN yarn install --frozen-lockfile
 
 # Copy application code
 COPY . .
@@ -46,11 +47,12 @@ RUN SECRET_KEY_BASE=$(openssl rand -hex 64) ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# Install packages needed for deployment including Node.js
+# Install packages needed for deployment including Node.js and Yarn
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libvips postgresql-client && \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
+    npm install -g yarn && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
